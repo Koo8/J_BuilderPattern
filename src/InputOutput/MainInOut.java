@@ -21,8 +21,9 @@ public class MainInOut {
         File file = new File("text.txt");
         writeFile();
         readFile(file);
-    }
 
+        outputObject();
+    }
 
 
     private static void writeFile() {
@@ -56,6 +57,25 @@ public class MainInOut {
         }
         System.out.println(output);
         return output;
+    }
+
+    // Serializable from SimpleObject // if the class SimpleObject is not serializable, the "notserializableException" will occur
+    private static void outputObject() {
+
+        // try with  resources approach to avoid close(); // put outputstream and inputstream inside the same block
+        try(ObjectOutputStream objOutputStream = new ObjectOutputStream(new FileOutputStream(new File("obj.ser")))) {
+            objOutputStream.writeObject(new SimpleObject("this is the conent", 3, 2, 11));
+
+            try(ObjectInputStream objInputStream = new ObjectInputStream(new FileInputStream("obj.ser"))){
+                SimpleObject data = (SimpleObject) objInputStream.readObject();
+                System.out.println(data);
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
