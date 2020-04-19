@@ -9,11 +9,25 @@ public class mainStream {
 //        IntStream.range(20, 30).
 //        forEach(System.out::println);
 
+        List<Integer> numbers = Arrays.asList(15,33, 55, 71, 115,42,66, 20);
         // first way of show an array of numbers - stream  --- lambda expression
-        List<Integer> numbers = Arrays.asList(1,3, 5, 7, 11);
+
         numbers.stream().forEach((n) -> System.out.println(n));
 
+        System.out.println("***************");
+
+
+        // get total using stream, map each number to its double, reduce them to total sum
+        System.out.println(numbers.stream().map(i->i*2).reduce(0,(a,b)->a+b));
+        //this above can also be written use Integer.sum(a,b) method, therefore, we can use the Method Reference for this
+        System.out.println("Method reference " + numbers.stream().map(i->i*2).reduce(0,Integer::sum));
+
         System.out.println("_______________ & ______________");
+
+        // stream filter --- add all numbers that is divisible by 5
+        System.out.println(numbers.stream().filter(i->i%5==0).reduce(0,Integer::sum));
+
+        System.out.println("&&&&&&&&&&&&&&&&");
 
         //**** use "******* Method reference ********" to print out each number
         numbers.forEach(System.out::println); // the format is class::method.
@@ -39,4 +53,6 @@ public class mainStream {
     private static void doubleIt(Integer integer) {
         System.out.println(integer * 2);
     }
+
+
 }
